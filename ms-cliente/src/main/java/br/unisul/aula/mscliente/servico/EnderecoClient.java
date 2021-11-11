@@ -11,6 +11,9 @@ public interface EnderecoClient {
     @GetMapping("/end/id/{id}")
     EnderecoDTO buscarPorId(@PathVariable(name = "id")Long id);
 
-    @GetMapping("/end/{cep}")
+    @GetMapping("/end/cep/{cep}")
     EnderecoDTO buscarPorCep(@PathVariable(name = "cep")Integer cep);
+
+    @GetMapping("/end/cid/{cidade}")
+	EnderecoDTO buscarPorCidade(@PathVariable(name = "cidade")String cidade);
 }

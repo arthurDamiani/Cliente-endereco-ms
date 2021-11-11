@@ -33,12 +33,16 @@ public class EnderecoController {
         return enderecoList.stream().map(EnderecoDTO::new)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
-    @GetMapping("/{cep}")
+    @GetMapping("/cep/{cep}")
     public EnderecoDTO buscarPorCEP(@PathVariable(name = "cep")Integer cep){
         return new EnderecoDTO(enderecoRepository.findFirstByCep(cep));
     }
+    @GetMapping("/cid/{cidade}")
+    public EnderecoDTO buscarPorCidade(@PathVariable(name = "cidade")String cidade){
+        return new EnderecoDTO(enderecoRepository.findByCidade(cidade));
+    }
     @GetMapping("/id/{id}")
-    public EnderecoDTO buscarPorCEP(@PathVariable(name = "id")Long id){
+    public EnderecoDTO buscarPorId(@PathVariable(name = "id")Long id){
         return new EnderecoDTO(enderecoRepository.getById(id));
     }
 

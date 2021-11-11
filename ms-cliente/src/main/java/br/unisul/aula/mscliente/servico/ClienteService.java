@@ -1,6 +1,8 @@
 package br.unisul.aula.mscliente.servico;
 
 import br.unisul.aula.mscliente.dto.ClienteDTO;
+import br.unisul.aula.mscliente.dto.ClientePorCidadeDTO;
+import br.unisul.aula.mscliente.dto.ClientesPorCidadeDTO;
 import br.unisul.aula.mscliente.dto.EnderecoDTO;
 import br.unisul.aula.mscliente.modelo.Cliente;
 import br.unisul.aula.mscliente.repositorio.ClienteRepository;
@@ -36,11 +38,25 @@ public class ClienteService {
         }
         return dtos;
     }
+    public ClientesPorCidadeDTO listarClientesPorCidade(String cidade) {
+    	List<ClientePorCidadeDTO> clientes = new ArrayList<>();
+    	EnderecoDTO endereco = buscarEnderecoPorCidade(cidade);
+    	for(Cliente cliente: clienteRepository.findAll()) {
+    		if(cliente.getEndereco_id() == endereco.getId()) {
+    			ClientePorCidadeDTO dto = new ClientePorCidadeDTO(cliente);
+    			clientes.add(dto);
+    		}
+    	}
+    	return new ClientesPorCidadeDTO(endereco, clientes);
+    }
     private EnderecoDTO buscarEnderecoPorID(Long id){
         return enderecoClient.buscarPorId(id);
     }
     private EnderecoDTO buscarEnderecoPorCep(Integer cep){
         return enderecoClient.buscarPorCep(cep);
+    }
+    private EnderecoDTO buscarEnderecoPorCidade(String cidade){
+        return enderecoClient.buscarPorCidade(cidade);
     }
 /*
 
